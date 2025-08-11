@@ -1,3 +1,3 @@
 # programadordesistema
-cd PI_REACT
+cd pr_react
 npx create-react-app .
