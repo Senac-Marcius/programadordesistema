@@ -3,25 +3,19 @@ import './App.css';
 
 function App() { //aqui é java script
 
-  function calculadora (a, b, op){
-    switch(op){
-      case '+':
-        return a+ b
-      case '-':
-        return a- b
-      case '*':
-        return a* b
-      case '/':
-        return a/ b
-    }
+  let cesta = ['pão', 'suco', 'chocolate', 'torrone']
+
+  let desenha = [];
+  // declara o indice; compara se é pra continuar; incrementa o indice
+  for(let i=0; i<3; i++){
+    desenha.push(<p> { cesta[i]  } </p>)
   }
 
   return ( /* aqui é html */
     <main className="App">
-      { calculadora(5,  calculadora(8, 7, '*'), '+') }<br/>
-      { calculadora(5, 5, '-') }<br/>
-      { calculadora(5, 5, '*') }<br/>
-      { calculadora(5, 5, '/') }<br/>
+      {
+        desenha
+      }
     </main>
   );
 }
