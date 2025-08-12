@@ -4,14 +4,15 @@ import './App.css';
 function App() { //aqui é java script
 
   function calculadora (a, b, op){
-    if(op == '+'){
-      return a + b
-    } else if(op == '-'){
-      return a - b;
-    } else if (op == '*') {
-      return a * b
-    } else if (op == '/') {
-      return a / b
+    switch(op){
+      case '+':
+        return a+ b
+      case '-':
+        return a- b
+      case '*':
+        return a* b
+      case '/':
+        return a/ b
     }
   }
 
