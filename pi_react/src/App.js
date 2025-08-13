@@ -1,44 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react';
+//ele retorna pra gente um par variavel e função que quando alterado
+// o dom atualiza a tela
 
 function App() { //aqui é java script
-  //quero uma variavel para o email
-  let email = ""
-
-  function mudaEmail(valor){
-    email = valor
-  }  
-
-  //quero uma variavel para a senha
-  let senha = ""
-
-  function mudaSenha(valor){
-    senha = valor
-  }
+  const [email, setEmail] = useState("")
+  const [senha, setSenha] = useState("")
+  const [isLogin, setIsLogin] = useState(true);
 
   function enviar(){
     alert("Email:"+email+" senha: "+senha)
   }
 
-  let isLogin = true;
-
-  function mudaTela(){
-    isLogin = !isLogin
-  }
-
   return ( /* aqui é html */
     <main className="App">
-      <button onClick={ () => mudaTela()}>
-        {isLogin && ("Cadastrar-se")}
-        {!isLogin && ("Voltar para o login")}
-      </button>
-      
-      {!isLogin && (
-      <form className="register">
-        
-      </form>
-      )}
-
       {isLogin && (
       <form className="login">
         <label>
@@ -47,7 +23,7 @@ function App() { //aqui é java script
             type="Email" 
             name="email" 
             placeholder="email@exemplo.com" 
-            onChange={ (e) => mudaEmail(e.target.value) }
+            onChange={ (e) => setEmail(e.target.value) }
           /><br/>
         </label>
         <label>
@@ -56,7 +32,7 @@ function App() { //aqui é java script
             type="password" 
             name="Senha" 
             placeholder="coloque uma senha com 6 carcater"
-            onChange={ (e) => mudaSenha(e.target.value) }
+            onChange={ (e) => setSenha(e.target.value) }
           /><br/>
         </label>
         <button 
@@ -67,6 +43,16 @@ function App() { //aqui é java script
         </button>
       </form>
       )}
+
+      {!isLogin && (
+      <form className="register">
+        
+      </form>
+      )}
+      <button onClick={ () => setIsLogin(!isLogin)}>
+        {isLogin && ("Cadastrar-se")}
+        {!isLogin && ("Voltar para o login")}
+      </button>
 
     </main>
   );
