@@ -43,7 +43,6 @@ function App() { //aqui é java script
         </button>
       </form>
       )}
-
       {!isLogin && (
       <form className="register">
         
@@ -53,7 +52,6 @@ function App() { //aqui é java script
         {isLogin && ("Cadastrar-se")}
         {!isLogin && ("Voltar para o login")}
       </button>
-
     </main>
   );
 }
