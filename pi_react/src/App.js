@@ -5,12 +5,17 @@ import {useState} from 'react';
 // o dom atualiza a tela
 
 function App() { //aqui é java script
-  const [email, setEmail] = useState("")
-  const [senha, setSenha] = useState("")
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    phone: "",
+    name: ""
+  });
+
   const [isLogin, setIsLogin] = useState(true);
 
   function enviar(){
-    alert("Email:"+email+" senha: "+senha)
+    alert("Email:"+user.email+" senha: "+user.password)
   }
 
   return ( /* aqui é html */
@@ -23,7 +28,7 @@ function App() { //aqui é java script
             type="Email" 
             name="email" 
             placeholder="email@exemplo.com" 
-            onChange={ (e) => setEmail(e.target.value) }
+            onChange={ (e) => setUser({...user, email: e.target.value}) }
           /><br/>
         </label>
         <label>
@@ -32,7 +37,7 @@ function App() { //aqui é java script
             type="password" 
             name="Senha" 
             placeholder="coloque uma senha com 6 carcater"
-            onChange={ (e) => setSenha(e.target.value) }
+            onChange={ (e) => setUser({...user, password: e.target.value }) }
           /><br/>
         </label>
         <button 
