@@ -1,49 +1,110 @@
 .App {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;      /* Centraliza vertical */
+  justify-content: center;  /* Centraliza horizontal */
+  background-color: #f6f7fb;
+  font-family: Arial, sans-serif;
+}
+
+/* Card central */
+.card {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 350px;
+  min-height: 525px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  margin-bottom: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.login, .register {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: flex-start;
+  width: 100%;
 }
 
-.App-link {
-  color: #61dafb;
+label {
+  font-size: 14px;
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: left;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
-.buttonSucess{
+.buttonSucess {
   background-color: #0000FF;
-  height: 30px; 
-  padding: 7px;             
-  margin: 20px;                 
+  height: 36px;
+  padding: 7px;
+  margin: 10px 0;
   color: #fff;
   cursor: pointer;
   border: none;
   border-radius: 5px;
+  width: 100%;
+  font-weight: bold;
+}
+
+.buttonSucess:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  color: #0000FF;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+p {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #333;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: toastFadeInOut 5s forwards;
+  z-index: 9999;
+}
+
+@keyframes toastFadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  10%, 90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
 }
