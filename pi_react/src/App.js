@@ -1,5 +1,8 @@
 import './App.css';
 import User from './User'
+import Auth from './Auth'
+import Home from './Home'
+import Game from './Game'
 import {BrowserRouter as Router, Routes, Route, Navigate, Link, Outlet} 
   from 'react-router-dom';
 
@@ -19,7 +22,7 @@ function App() {
             <>
               <Link to="/home">Inicio</Link>
               <Link to="/users">Usuários</Link>
-              <Link to="/games">Jogos</Link>
+              <Link to="/game">Jogos</Link>
             </>
           ):(
             <>
@@ -31,15 +34,17 @@ function App() {
 
         <Routes>
           {/* Rotas Públicas */}
-          <Route path='/home' element={<Home />} />
-          <Route path='/login' element={<User />} />
+          <Route path='/login' element={<Auth />} />
 
           <Route element={ <PrivateSession/> }>
-
             {/* Rotas Logado */}
-            <Route path='/games' element={<Games />} />
+            <Route path='/users' element={<User />} />
+            <Route path='/home' element={<Home />} />
+            <Route path='/game' element={<Game />} />
             
           </Route>
+
+          <Route path='/' element={<Navigate to='/login' replace/>} />
         </Routes>
 
       </main>

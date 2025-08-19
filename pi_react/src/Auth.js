@@ -6,7 +6,7 @@ const supabaseKey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIs
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-function User() {
+function Auth() {
   const [user, setUser] = useState({ 
     name: "", 
     phone: "", 
@@ -151,4 +151,4 @@ function User() {
   );
 }
 
-export default User;
+export default Auth;

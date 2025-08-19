@@ -1,10 +1,11 @@
 .App {
-  min-height: 100vh;
+  min-height: calc(100vh - 70px) ;
   display: flex;
   align-items: center;      /* Centraliza vertical */
   justify-content: center;  /* Centraliza horizontal */
   background-color: #f6f7fb;
   font-family: Arial, sans-serif;
+  padding-top: 70px; /* altura da nav */
 }
 
 /* Card central */
@@ -107,4 +108,34 @@ p {
     opacity: 0;
     transform: translateY(-20px);
   }
+}
+
+/* Barra de navegação fixa no topo */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #282c34;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 1000;
+}
+
+/* Estilo dos links */
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover com highlight (riligth) */
+nav a:hover {
+  background-color: #fff;
+  color: #0000FF;
 }
