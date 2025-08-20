@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { createClient } from "@supabase/supabase-js";
+import { useNavigate } from 'react-router-dom';
 
 const supabaseUrl="https://clnjakvlqdtyfgcoapci.supabase.co";
 const supabaseKey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsbmpha3ZscWR0eWZnY29hcGNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQzNTAzNzEsImV4cCI6MjA2OTkyNjM3MX0.7g7VvxI1DnM0kgvdcoYW2qc_8sdAdyyCfsQyXkebPeQ";
@@ -7,6 +8,7 @@ const supabaseKey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIs
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 function Auth() {
+  const nav = useNavigate();
   const [user, setUser] = useState({ 
     name: "", 
     phone: "", 
@@ -15,12 +17,32 @@ function Auth() {
   });
   const [isLogin, setIsLogin] = useState(true);
 
-  const [isSendRegister, setIsSendRegister] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [msg, setMsg] = useState("");
 
+  async function logar() {
+    setMsg('');
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: user.email,
+        password: user.password,
+      });
+      if (error) throw error;
+
+      localStorage.setItem('supabaseSession', JSON.stringify(data.session));
+      setMsg('Login realizado com sucesso!');
+      setTimeout(() => nav('/game', { replace: true }), 500);
+    } catch (err) {
+      setMsg(`Erro ${err.status || ''}: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function register(){
-    setIsSendRegister(true);
+    setLoading(true);
 
     try{
       let { data, error } = await supabase.auth.signUp({
@@ -37,7 +59,7 @@ function Auth() {
       setMsg(`Error: ${e.message}`);
     }
 
-    setIsSendRegister(false);
+    setLoading(false);
 
     setTimeout(() => setMsg(""), 5000);
   }
@@ -75,8 +97,9 @@ function Auth() {
             <button
               type="button"
               className="buttonSucess"
+              onClick={logar} disabled={loading}
             >
-              {isSendRegister ? "Entrando..." : "Login"}
+              {loading ? "Entrando..." : "Login"}
             </button>
           </form>
         ) }
@@ -131,9 +154,9 @@ function Auth() {
               type="button"
               className="buttonSucess"
               onClick={register}
-              disabled={isSendRegister}
+              disabled={loading}
             >
-              {isSendRegister ? "Cadastrando..." : "Cadastrar"}
+              {loading ? "Cadastrando..." : "Cadastrar"}
             </button>
           </form>
         )}

@@ -35,16 +35,17 @@ function App() {
         <Routes>
           {/* Rotas Públicas */}
           <Route path='/login' element={<Auth />} />
+          <Route path='/game' element={<Game />} />
 
           <Route element={ <PrivateSession/> }>
             {/* Rotas Logado */}
             <Route path='/users' element={<User />} />
             <Route path='/home' element={<Home />} />
-            <Route path='/game' element={<Game />} />
+            
             
           </Route>
 
-          <Route path='/' element={<Navigate to='/login' replace/>} />
+          <Route path='/' element={<Navigate to='/game' replace/>} />
         </Routes>
 
       </main>
