@@ -16,6 +16,8 @@ export default function Game() {
     user_id: ""
   })
 
+  const [games, setGames] = useState([])
+
   async function createGame(){
     const {data: dU, error: eU} = await supabase.auth.getUser();
 
@@ -28,6 +30,14 @@ export default function Game() {
       .insert({...game, user_id: uid});
       //.select();
   }
+
+  async function readGame(){
+    let { data: games, error } = await supabase
+      .from('games')
+      .select('*')
+
+    setGames(games)
+  }
  
   return (
     <div className="screen">
@@ -38,6 +48,17 @@ export default function Game() {
 
         <button onClick={createGame}>Salvar</button>
       </form>
+
+      <button onClick={readGame}>Buscar</button><br/>
+      {games.map(
+        g => (
+          <div key={g.id}>
+          <a url={g.url}>
+          Jogo:{ g.name}
+          </a><br/>
+          </div>
+        )
+      )}
     </div>
   );
 }
