@@ -9,6 +9,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 function Auth() {
   const nav = useNavigate();
+
   const [user, setUser] = useState({ 
     name: "", 
     phone: "", 
@@ -22,23 +23,31 @@ function Auth() {
   const [msg, setMsg] = useState("");
 
   async function logar() {
-    setMsg('');
-    setLoading(true);
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: user.email,
-        password: user.password,
-      });
-      if (error) throw error;
+    setLoading(true)
 
-      localStorage.setItem('supabaseSession', JSON.stringify(data.session));
-      setMsg('Login realizado com sucesso!');
-      setTimeout(() => nav('/game', { replace: true }), 500);
-    } catch (err) {
-      setMsg(`Erro ${err.status || ''}: ${err.message}`);
-    } finally {
-      setLoading(false);
+    try{
+      let { data, error } = await supabase.auth.signInWithPassword({
+        email: user.email,
+        password: user.password
+      });
+
+      if(error) throw error;
+
+      setMsg('Logou');
+      localStorage.setItem('supaSession', JSON.stringify(data.session) )
+
+      setTimeout(
+        nav('/home', {replace: true}),
+        5002
+      );
+
+    }catch(err){
+      setMsg('Error: '+err);
     }
+
+    setLoading(false)
+
+    setTimeout(() => setMsg(""), 5000);
   }
 
   async function register(){
@@ -54,6 +63,8 @@ function Auth() {
 
       if(data.status == 400) throw data.message	
 
+
+
       setMsg("Cadastro realizado!");
     }catch(e){
       setMsg(`Error: ${e.message}`);
@@ -65,7 +76,7 @@ function Auth() {
   }
 
   return (
-    <main className="App">
+    <div className="screen">
       <div className="card">
         <h1>{isLogin ? "Entrar" : "Cadastrar"}</h1>
 
@@ -170,7 +181,7 @@ function Auth() {
       </div>
 
       {msg && (<div className='toast'>{msg}</div>)}  
-    </main>
+    </div>
   );
 }
 
