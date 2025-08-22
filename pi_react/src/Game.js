@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
@@ -12,11 +12,16 @@ export default function Game() {
   const [game, setGame] = useState({
     url: "",
     name: "",
+    categoria: "",
     description: "",
     user_id: ""
   })
 
   const [games, setGames] = useState([])
+
+  useEffect(()=>{
+    readGames()
+  }, [])
 
   async function createGame(){
     const {data: dU, error: eU} = await supabase.auth.getUser();
@@ -31,12 +36,21 @@ export default function Game() {
       //.select();
   }
 
-  async function readGames() {    
-    let { data: dataGames, error } = await supabase
-    .from('games')
-    .select('*');
+  async function readGames(filtro) {    
+    if(filtro){
+      let { data: dataGames, error } = await supabase
+        .from('games')
+        .select('*')
+        .eq('categoria', filtro);
+
+        setGames(dataGames);
+    }else{
+      let { data: dataGames, error } = await supabase
+        .from('games')
+        .select('*');
         
-    setGames(dataGames);
+        setGames(dataGames);
+    }
   }
  
   return (
@@ -45,11 +59,14 @@ export default function Game() {
         <input type="text" placeholder='http://exemple.com' onChange={(e) => setGame({...game, url: e.target.value})} />
         <input type="text" placeholder='digite o nome do jogo' onChange={(e) => setGame({...game, name: e.target.value})} />
         <input type="text" placeholder='descrição' onChange={(e) => setGame({...game, description: e.target.value})} />
+        <input type="text" placeholder='categoria' onChange={(e) => setGame({...game, categoria: e.target.value})} />
 
         <button onClick={createGame}>Salvar</button>
       </form>
 
-      <button onClick={readGames}>Buscar</button>
+      <button onClick={() => readGames("Arcade")}>Busca Arcades</button>
+      <button onClick={() => readGames("Mobile")}>Busca Mobiles</button>
+      <button onClick={() => readGames()}>Busca Todos</button>
 
       <div className='row'>
       {games.map(
