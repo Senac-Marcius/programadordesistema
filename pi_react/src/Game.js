@@ -31,12 +31,12 @@ export default function Game() {
       //.select();
   }
 
-  async function readGame(){
-    let { data: games, error } = await supabase
-      .from('games')
-      .select('*')
-
-    setGames(games)
+  async function readGames() {    
+    let { data: dataGames, error } = await supabase
+    .from('games')
+    .select('*');
+        
+    setGames(dataGames);
   }
  
   return (
@@ -49,16 +49,21 @@ export default function Game() {
         <button onClick={createGame}>Salvar</button>
       </form>
 
-      <button onClick={readGame}>Buscar</button><br/>
+      <button onClick={readGames}>Buscar</button>
+
+      <div className='row'>
       {games.map(
         g => (
-          <div key={g.id}>
-          <a url={g.url}>
-          Jogo:{ g.name}
-          </a><br/>
+          <div className='cardGame' key={g.id}>
+            Nome: {g.name}<br/>
+            <a url={g.url}></a>
+            {/*<></>*/}
+            <p>{g.description}</p>
           </div>
         )
       )}
+      </div>
+     
     </div>
   );
 }
