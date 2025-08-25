@@ -1,5 +1,5 @@
 
-import './Game.css';
+import './Style.css';
 import { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';

@@ -1,8 +1,8 @@
 import './App.css';
-import User from './Views/User/User'
+import User from './Views/User/Index'
 import Auth from './Views/User/Auth'
 import Home from './Views/Home'
-import Game from './Views/Game/Game'
+import Game from './Views/Game/Index'
 import {BrowserRouter as Router, Routes, Route, Navigate, Link, Outlet} 
   from 'react-router-dom';
 
