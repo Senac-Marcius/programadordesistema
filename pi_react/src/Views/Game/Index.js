@@ -73,7 +73,7 @@ export default function Game() {
       <div className='row'>
       {games.map(
         g => (
-          <div className='cardGame' key={g.id}>
+          <div className='cardGame' key={g.id} onClick={() => nav( `/game/${g.id}`, {replace: true} )}>
             Nome: {g.name}<br/>
             <a url={g.url}></a>
             {/*<></>*/}

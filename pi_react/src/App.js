@@ -1,8 +1,9 @@
 import './App.css';
-import User from './Views/User/Index'
-import Auth from './Views/User/Auth'
-import Home from './Views/Home'
-import Game from './Views/Game/Index'
+import User from './Views/User/Index';
+import Auth from './Views/User/Auth';
+import Home from './Views/Home';
+import Game from './Views/Game/Index';
+import GameShow from './Views/Game/Show';
 import {BrowserRouter as Router, Routes, Route, Navigate, Link, Outlet} 
   from 'react-router-dom';
 
@@ -42,6 +43,7 @@ function App() {
             {/* Rotas Logado */}
             <Route path='/users' element={<User />} />
             <Route path='/game' element={<Game />} />   
+            <Route path='/game/:id' element={<GameShow />} />   
             
           </Route>
 
