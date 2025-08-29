@@ -3,6 +3,7 @@ import './Style.css';
 import { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
+import Button from 'react-bootstrap/Button';
 
 const supabaseUrl = "https://clnjakvlqdtyfgcoapci.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsbmpha3ZscWR0eWZnY29hcGNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQzNTAzNzEsImV4cCI6MjA2OTkyNjM3MX0.7g7VvxI1DnM0kgvdcoYW2qc_8sdAdyyCfsQyXkebPeQ";
@@ -54,6 +55,13 @@ export default function Game() {
         setGames(dataGames);
     }
   }
+
+  async function delGame(batatinha){
+    const { error } = await supabase
+      .from('games')
+      .delete()
+      .eq('id', batatinha)
+  }
  
   return (
     <div className="screen">
@@ -73,11 +81,14 @@ export default function Game() {
       <div className='row'>
       {games.map(
         g => (
-          <div className='cardGame' key={g.id} onClick={() => nav( `/game/${g.id}`, {replace: true} )}>
+          <div className='cardGame' key={g.id} >
             Nome: {g.name}<br/>
             <a url={g.url}></a>
             {/*<></>*/}
             <p>{g.description}</p>
+            <Button variant="danger" onClick={() => delGame(g.id)}  >Excluir</Button>
+            <Button variant="primary" onClick={() => nav( `/game/${g.id}`, {replace: true} )}>Ver</Button>
+            <Button variant="warning" onClick={() => nav( `/game/edit/${g.id}`, {replace: true} )}>Editar</Button>
           </div>
         )
       )}

@@ -4,6 +4,7 @@ import Auth from './Views/User/Auth';
 import Home from './Views/Home';
 import Game from './Views/Game/Index';
 import GameShow from './Views/Game/Show';
+import GameEdit from './Views/Game/Edit';
 import {BrowserRouter as Router, Routes, Route, Navigate, Link, Outlet} 
   from 'react-router-dom';
 
@@ -42,8 +43,10 @@ function App() {
           <Route element={ <PrivateSession/> }>
             {/* Rotas Logado */}
             <Route path='/users' element={<User />} />
-            <Route path='/game' element={<Game />} />   
-            <Route path='/game/:id' element={<GameShow />} />   
+            
+            <Route path='/game/edit/:id' element={<GameEdit />} /> 
+            <Route path='/game/:id' element={<GameShow />} />  
+            <Route path='/game' element={<Game />} />     
             
           </Route>
 

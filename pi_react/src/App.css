@@ -65,7 +65,7 @@ input {
   font-size: 14px;
   box-sizing: border-box;
 }
-
+/*
 .buttonSucess {
   background-color: #0000FF;
   height: 36px;
@@ -90,7 +90,7 @@ button {
   color: #0000FF;
   cursor: pointer;
   margin-top: 10px;
-}
+}*/
 
 p {
   margin-top: 15px;
