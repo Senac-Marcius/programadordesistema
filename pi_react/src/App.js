@@ -5,8 +5,8 @@ import Home from './Views/Home';
 import Game from './Views/Game/Index';
 import GameShow from './Views/Game/Show';
 import GameEdit from './Views/Game/Edit';
-import {BrowserRouter as Router, Routes, Route, Navigate, Link, Outlet} 
-  from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route, Navigate, Link, Outlet}  from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function PrivateSession(){
   const hasSession = !!localStorage.getItem('supaSession');

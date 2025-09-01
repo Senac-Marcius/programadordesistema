@@ -71,12 +71,12 @@ export default function Game() {
         <input type="text" placeholder='descrição' onChange={(e) => setGame({...game, description: e.target.value})} />
         <input type="text" placeholder='categoria' onChange={(e) => setGame({...game, categoria: e.target.value})} />
 
-        <button onClick={createGame}>Salvar</button>
+        <Button  onClick={createGame}>Salvar</Button>
       </form>
 
-      <button onClick={() => readGames("Arcade")}>Busca Arcades</button>
-      <button onClick={() => readGames("Mobile")}>Busca Mobiles</button>
-      <button onClick={() => readGames()}>Busca Todos</button>
+      <Button  onClick={() => readGames("Arcade")}>Busca Arcades</Button >
+      <Button  onClick={() => readGames("Mobile")}>Busca Mobiles</Button >
+      <Button  onClick={() => readGames()}>Busca Todos</Button >
 
       <div className='row'>
       {games.map(
