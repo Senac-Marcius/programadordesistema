@@ -4,6 +4,7 @@ import { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 import Button from 'react-bootstrap/Button';
+import { Input } from '../../Components/Input'
 
 const supabaseUrl = "https://clnjakvlqdtyfgcoapci.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsbmpha3ZscWR0eWZnY29hcGNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQzNTAzNzEsImV4cCI6MjA2OTkyNjM3MX0.7g7VvxI1DnM0kgvdcoYW2qc_8sdAdyyCfsQyXkebPeQ";
@@ -66,10 +67,35 @@ export default function Game() {
   return (
     <div className="screen">
       <form onSubmit={(e)=> e.preventDefault()}>
-        <input type="text" placeholder='http://exemple.com' onChange={(e) => setGame({...game, url: e.target.value})} />
-        <input type="text" placeholder='digite o nome do jogo' onChange={(e) => setGame({...game, name: e.target.value})} />
-        <input type="text" placeholder='descrição' onChange={(e) => setGame({...game, description: e.target.value})} />
-        <input type="text" placeholder='categoria' onChange={(e) => setGame({...game, categoria: e.target.value})} />
+        <Input 
+          label="Digite a url desse jogo"
+          type="text" 
+          placeholder='http://exemple.com' 
+          onChange={setGame} 
+          objeto={game}
+          campo='url'
+        />
+        <Input 
+          type="text" 
+          placeholder='digite o nome do jogo' 
+          onChange={setGame} 
+          objeto={game}
+          campo='name'
+        />
+        <Input 
+          type="text" 
+          placeholder='descrição do jogo' 
+          onChange={setGame} 
+          objeto={game}
+          campo='description'
+        />
+        <Input 
+          type="text" 
+          placeholder='categoria do jogo' 
+          onChange={setGame} 
+          objeto={game}
+          campo='categoria'
+        />
 
         <Button  onClick={createGame}>Salvar</Button>
       </form>
