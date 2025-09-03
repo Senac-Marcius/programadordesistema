@@ -3,7 +3,7 @@ import './Style.css';
 import { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
-import Button from 'react-bootstrap/Button';
+
 import { Input } from '../../Components/Input'
 
 const supabaseUrl = "https://clnjakvlqdtyfgcoapci.supabase.co";
@@ -66,7 +66,7 @@ export default function Game() {
  
   return (
     <div className="screen">
-      <form onSubmit={(e)=> e.preventDefault()}>
+      <Form  func={createGame} title="Cadastro de Jogo">
         <Input 
           label="Digite a url desse jogo"
           type="text" 
@@ -96,9 +96,7 @@ export default function Game() {
           objeto={game}
           campo='categoria'
         />
-
-        <Button  onClick={createGame}>Salvar</Button>
-      </form>
+      </Form>
 
       <Button  onClick={() => readGames("Arcade")}>Busca Arcades</Button >
       <Button  onClick={() => readGames("Mobile")}>Busca Mobiles</Button >
