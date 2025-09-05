@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
 import { Input } from '../../Components/Input'
+import { listGames } from '../../Components/Games'
 
 const supabaseUrl = "https://clnjakvlqdtyfgcoapci.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsbmpha3ZscWR0eWZnY29hcGNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQzNTAzNzEsImV4cCI6MjA2OTkyNjM3MX0.7g7VvxI1DnM0kgvdcoYW2qc_8sdAdyyCfsQyXkebPeQ";
@@ -16,15 +17,17 @@ export default function Game() {
   const [game, setGame] = useState({
     url: "",
     name: "",
-    categoria: "",
+    categoria_id: '1',
     description: "",
     user_id: ""
   })
 
   const [games, setGames] = useState([])
+  const [categories, setCategories] = useState([])
 
   useEffect(()=>{
     readGames()
+    readCategoria()
   }, [])
 
   async function createGame(){
@@ -38,6 +41,14 @@ export default function Game() {
       .from('games')
       .insert({...game, user_id: uid});
       //.select();
+  }
+
+  async function readCategoria() {
+    let { data: dataCategoria, error } = await supabase
+        .from('categories')
+        .select('*');
+
+        setCategories(dataCategoria);
   }
 
   async function readGames(filtro) {    
@@ -89,34 +100,28 @@ export default function Game() {
           objeto={game}
           campo='description'
         />
-        <Input 
-          type="text" 
-          placeholder='categoria do jogo' 
-          onChange={setGame} 
-          objeto={game}
-          campo='categoria'
-        />
+        
+        <select value={game.categoria_id} onChange={(e)=> setGame({
+          ...game, categoria_id: e.target.value
+        }) }>
+          {categories.map(
+            c => (
+              <option value={c.id}> {c.name}</option>
+            )
+          )}
+        </select>
       </Form>
 
       <Button  onClick={() => readGames("Arcade")}>Busca Arcades</Button >
       <Button  onClick={() => readGames("Mobile")}>Busca Mobiles</Button >
       <Button  onClick={() => readGames()}>Busca Todos</Button >
 
-      <div className='row'>
-      {games.map(
-        g => (
-          <div className='cardGame' key={g.id} >
-            Nome: {g.name}<br/>
-            <a url={g.url}></a>
-            {/*<></>*/}
-            <p>{g.description}</p>
-            <Button variant="danger" onClick={() => delGame(g.id)}  >Excluir</Button>
-            <Button variant="primary" onClick={() => nav( `/game/${g.id}`, {replace: true} )}>Ver</Button>
-            <Button variant="warning" onClick={() => nav( `/game/edit/${g.id}`, {replace: true} )}>Editar</Button>
-          </div>
-        )
-      )}
-      </div>
+      <listGames 
+         games={games}
+         funcExcluir={() => delGame(g.id)}
+         funcEdit={() => nav( `/game/edit/${g.id}`, {replace: true} )}
+         funcVer={() => nav( `/game/${g.id}`, {replace: true} )}
+      />
      
     </div>
   );
